@@ -26,4 +26,13 @@ public class OpenApiConfiguration {
                 .pathsToMatch("/auth/**")
                 .build();
     }
+
+    @Bean
+    public GroupedOpenApi TestAPI() {
+        return GroupedOpenApi.builder()
+                .displayName("TestAPI")
+                .group("Test API")
+                .pathsToMatch("/test/**")
+                .build();
+    }
 }
