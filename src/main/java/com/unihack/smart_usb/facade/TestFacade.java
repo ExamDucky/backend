@@ -93,4 +93,8 @@ public class TestFacade {
                 .title(dbTest.getTitle())
                 .build()).toList();
     }
+
+    public TestDto createNewTest(TestDto testDto) {
+        return new TestDto();
+    }
 }

@@ -46,4 +46,12 @@ public class TestController {
         log.info("Get tests by title query for professor with id: " + professor.getId());
         return ResponseEntity.ok(testFacade.getTestByTitleQuery(titleQuery, professor));
     }
+
+    @Operation(summary = "Search tests by title", description = "Method for getting the tests owned by the professor, where the titles start with the given query")
+    @PostMapping("/create")
+    public ResponseEntity<TestDto> createNewTest(Authentication authentication, @RequestBody TestDto testDto) {
+        Professor professor = (Professor) authentication.getPrincipal();
+        log.info("Create new test by the professor with id: " + professor.getId());
+        return ResponseEntity.ok(testFacade.createNewTest(testDto));
+    }
 }
