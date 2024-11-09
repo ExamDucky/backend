@@ -55,7 +55,7 @@ public class TestController {
     public ResponseEntity<TestDTO> createNewTest(Authentication authentication, @RequestBody TestDTO testDto) {
         Professor professor = (Professor) authentication.getPrincipal();
         log.info("Create new test by the professor with id: " + professor.getId());
-        return ResponseEntity.ok(testFacade.createNewTest(testDto));
+        return ResponseEntity.ok(testFacade.createNewTest(testDto, professor.getId()));
     }
 
     @Operation(summary = "Import test file", description = "Method for importing test file by the professor")
@@ -63,6 +63,6 @@ public class TestController {
     public ResponseEntity<TestDTO> uploadTestFile(Authentication authentication, @NotNull @PathVariable Long id, @RequestParam("file") MultipartFile file) {
         Professor professor = (Professor) authentication.getPrincipal();
         log.info("Create new test by the professor with id: " + professor.getId());
-        return ResponseEntity.ok(testFacade.updateTestWithFile(id, file));
+        return ResponseEntity.ok(testFacade.updateTestWithFile(id, file, professor.getId()));
     }
 }

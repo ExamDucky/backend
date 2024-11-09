@@ -99,8 +99,8 @@ public class TestFacade {
                 .build()).toList();
     }
 
-    public TestDTO createNewTest(TestDTO testDto) {
-        Optional<Professor> professorOptional = professorService.getProfessorById(testDto.getProfessorId());
+    public TestDTO createNewTest(TestDTO testDto, Long professorId) {
+        Optional<Professor> professorOptional = professorService.getProfessorById(professorId);
         Professor professor;
         if (!professorOptional.isPresent()) {
             throw new EntityDoesNotExistException("Professor with the given id does not exist.");
@@ -126,10 +126,11 @@ public class TestFacade {
                 .groupOneTestFileName(savedTest.getGroupOneTestFileName())
                 .groupTwoTestFileName(savedTest.getGroupTwoTestFileName())
                 .blacklistProcessesFileName(savedTest.getBlacklistProcessesFileName())
+                .professorId(professor.getId())
                 .build();
     }
 
-    public TestDTO updateTestWithFile(Long id, MultipartFile file) {
+    public TestDTO updateTestWithFile(Long id, MultipartFile file, Long professorId) {
         Optional<Test> testOptional = testService.getTestById(id);
         if (!testOptional.isPresent()) {
             throw new EntityDoesNotExistException("The test with the given id does not exist.");
@@ -140,6 +141,10 @@ public class TestFacade {
             throw new EntityDoesNotExistException("The professor with the given id does not exist");
         }
         Professor professor = professorOptional.get();
+
+        if (professor.getId() != professorId) {
+            throw new UserDoesNotOwnEntityException("The given test does not belong to this professor.");
+        }
 
         //TODO poslati fajlove na S3; videti kako fajlovi treba da se zovu; treba da budu u folderu profesora
 
@@ -169,8 +174,10 @@ public class TestFacade {
                 }
                 zipInputStream.closeEntry();
             }
-
             fileContents.forEach(System.out::println);
+
+            System.out.println("All 3 files processed successfully.\nContents:\n" + String.join("\n\n", fileContents));
+
 
             return TestDTO.builder()
                     .id(test.getId())
