@@ -9,16 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TestDto {
+public class TestDTO {
 
     private Long id;
     private String title;
     private int duration;
+    private String description;
     private String groupOneTestFileName;
     private String groupTwoTestFileName;
-    private String groupOneUnitTestFileName;
-    private String groupTwoUnitTestFileName;
     private String blacklistProcessesFileName;
     private Long professorId;
-
 }

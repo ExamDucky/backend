@@ -33,12 +33,6 @@ public class Test {
     private String groupTwoTestFileName;
 
     @Column(nullable = false)
-    private String groupOneUnitTestFileName;
-
-    @Column(nullable = false)
-    private String groupTwoUnitTestFileName;
-
-    @Column(nullable = false)
     private String blacklistProcessesFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,8 +51,6 @@ public class Test {
                 ", duration=" + duration +
                 ", groupOneTestFileName='" + groupOneTestFileName + '\'' +
                 ", groupTwoTestFileName='" + groupTwoTestFileName + '\'' +
-                ", groupOneUnitTestFileName='" + groupOneUnitTestFileName + '\'' +
-                ", groupTwoUnitTestFileName='" + groupTwoUnitTestFileName + '\'' +
                 ", blacklistProcessesFileName='" + blacklistProcessesFileName + '\'' +
                 ", professor=" + professor +
                 ", exams=" + exams +

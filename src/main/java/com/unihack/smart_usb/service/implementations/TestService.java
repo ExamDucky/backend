@@ -45,4 +45,7 @@ public class TestService implements ITestService {
         return repository.findByTitleAndProfessorId(title, professorId);
     }
 
+    public Test saveTest(Test testToSave) {
+        return repository.save(testToSave);
+    }
 }
